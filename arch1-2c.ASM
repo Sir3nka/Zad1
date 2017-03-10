@@ -16,7 +16,7 @@ Kod             SEGMENT
 
                 ORG    100h														;musi byc 100h
                 ASSUME  CS:Kod, DS:Kod, SS:Kod			; chyba zbedne
-			;test gita - nowy dopis
+			
 Start:
 
 DL_TABLICA      EQU     12
