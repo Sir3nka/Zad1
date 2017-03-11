@@ -11,6 +11,7 @@
 ;=============================================================================;
 
 ; obliczam ( 60 - 0.5 ) * 8 = 59.5 * 8  = 476
+;obliczam w tym programie: d+3=8->d, b/a=0 ->b
 
                 .MODEL SMALL
 
@@ -45,9 +46,10 @@ Start:	; poczatek programu ( z :)
 				mov	ax, b
 				mov	bx, a		
 				div		bx	; dzielenie ax przez bx  czyli 10 / 20
-				mov	b, ax	;	w ax jest wynik czyli 0.5 i przenosze do b
+				mov	b, ax	;	w ax jest wynik czyli 0.5 i przenosze do b, chyba powinno byc: 
+				;mov	b, al  ; reszta trfia do ah  - powinno byc zamiast powyzszej liniii
 		
-; od teraz zle bo wynik mamy 0,5 czyli float
+; od teraz zle bo wynik mamy 0 w al i reszte czyli 5( raczej 10) w ah
 ;czyli calosc jest w ax a reszta jest w dx		gdy uzyje div a przy mul chyba dobrze
 
 				mov    ax, a	; pod rejestr AX przypisz a , czyli w ax mamy 20
