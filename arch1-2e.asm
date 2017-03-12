@@ -4,8 +4,8 @@
 ; Format         : EXE                                                        ;
 ; Cwiczenie      : Kompilacja, konsolidacja i debugowanie programów           ;
 ;                  asemblerowych                                              ;
-; Autorzy        : Przemyslaw Otrembski, Adrian D³ugosz, grupa 4, 5 marca 2017, godzina zajec  ;8:30
-; Data zaliczenia: 08.08.2017                                                  ;
+; Autorzy        : Przemyslaw Otrembski, Adrian D³ugosz, grupa 2, 5 marca 2017, godzina zajec  ;8:30
+; Data zaliczenia: 12.03.2017                                                  ;
 ; Uwagi          : Program obliczajacy wzor: (3*a-b/a)*(d+3)                  ;
 ;                                                                             ;
 ;=============================================================================;
