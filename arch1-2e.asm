@@ -10,19 +10,19 @@
 ;                                                                             ;
 ;=============================================================================;
 
-; obliczam ( 60 - 0.5 ) * 8 = 59.5 * 8  = 476
+; obliczam ( 60 - 0 ) * 8 = 59.5 * 8  = 476
 ;obliczam w tym programie: d+3=8->d, b/a=0 ->b
 
                 .MODEL SMALL
 
 Dane            SEGMENT
-
-a               DW      20	; DB Define Byte max  wielkosc  hex 0-255
+					;deklaracja zmiennych
+a               DB     20	; DB Define Byte max  wielkosc  hex 0-255
 b               DW      10		; DW - Define Word max wielkosc hex 0-65535
 c               EQU     3
 d               DW      5
 Wynik        DW      ?
-; num DWORD	0		; do tego word na koncu
+
 
 Dane ENDS          ; bylo ENDSEG          Dane
 
@@ -35,46 +35,52 @@ Start:	; poczatek programu ( z :)
 ;mov CEL, ZRODLO. Sluzy do do kopiowania wartosci miedzy pamieciom a rejestrami, lub tylko miedzy rejestrami.
 
 		;deklaracja danych
-                mov     ax, SEG Dane    ; zaladowanie rejestru DS  ;czy te dwie linie musza byc?
-                mov     ds, ax          ; segmentem danych
+                mov     ax, SEG Dane    ; zaladowanie rejestru DS 
+                mov     ds, ax          ; segmentem danych ;czy te dwie linie musza byc? - Tak
 							
                 mov 	ax, d
 				mov	bx, c
 				add 	ax, bx	; dodawanie
 				mov	d, ax	; d=8  tj d= d+c = 5+3
 				
-				mov	al, b
+				mov	ax, b
 				mov	bl, a		
 				div		bl	; dzielenie ax przez bx  czyli 10 / 20
-				mov	b, ax	;	w ax jest wynik czyli 0.5 i przenosze do b, chyba powinno byc: 
-				;mov	b, al  ; reszta trfia do ah  - powinno byc zamiast powyzszej liniii
+				xor 		ah,ah	; musze wyzerowac reszte z dzieleania (0A)bo jak zostawie
+										;dalej przy odejmowaniu mialbym
+										;60 - ax czyli 003c - 0a00 wyszlo by f636
+										; a jak wyzeruje reszte i zapamietam to bedzie 60-0=60
+				mov	wynik, ax	;	w ax jest wynik czyli 0.5 i przenosze do zmiennej wynik
+				;mov	b, al  ; reszta trafia do ah  - powinno byc zamiast powyzszej liniii
 		
 ; od teraz zle bo wynik mamy 0 w al i reszte czyli 5( raczej 10) w ah
 ;czyli calosc jest w ax a reszta jest w dx		gdy uzyje div a przy mul chyba dobrze
 
-				mov    ax, a	; pod rejestr AX przypisz a , czyli w ax mamy 20
-                mov    bx, c	; pod BX przypisz 3
-				mul 	bx		;mnozenie. pomnó¿ bx razy ax
+
+				mov    al, a	; pod rejestr AX przypisz a , czyli w ax mamy 20
+                mov    bl, c	; pod BX przypisz 3
+				mul 	bl		;mnozenie. pomnó¿ bl razy ax wynik 60
 			; w ax jest 60
-				mov	bx, b
-				sub		ax, bx	;odejmowanie  w ax jest wynik 60 - 0.5 czyli 59,5
-				
-				;mnozenie
-				mul		d			; mnozenie ax razy d czyli 59.5 rszy 8 = 476
+				mov	bx, wynik
+				sub		ax, bx	;odejmowanie  w ax jest wynik 60 
+				; tu mam bledny wynik bo po odjeciu mam w ax f636=63030
+				;mnozenie   tu mam blad 
+				mov bx, d
+				mul		bl			; mnozenie ax razy d czyli 59.5 razy 8 = 476
 				mov	Wynik, ax
 				
 
-                mov     ax, WORD PTR Wynik
+                mov     ax, WORD PTR Wynik   ; po co to jest?
 
 				; koniec opuszczenie programu  21h to przerwanie DOSowe
-                mov     ax, 4C01h  ; chyba 4c01h
+                mov     ax, 4C01h  
                 int     21h
 
 Kod            ENDS
 
-Stosik          SEGMENT    STACK
+Stosik          SEGMENT    STACK		; caly segment stos jest tu niepotrzbny chyba
 
-                DB      100h DUP (?)
+                DB      100h DUP (?)		
 
 Stosik       ENDS
 
