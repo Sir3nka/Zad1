@@ -43,9 +43,9 @@ Start:	; poczatek programu ( z :)
 				add 	ax, bx	; dodawanie
 				mov	d, ax	; d=8  tj d= d+c = 5+3
 				
-				mov	ax, b
-				mov	bx, a		
-				div		bx	; dzielenie ax przez bx  czyli 10 / 20
+				mov	al, b
+				mov	bl, a		
+				div		bl	; dzielenie ax przez bx  czyli 10 / 20
 				mov	b, ax	;	w ax jest wynik czyli 0.5 i przenosze do b, chyba powinno byc: 
 				;mov	b, al  ; reszta trfia do ah  - powinno byc zamiast powyzszej liniii
 		
