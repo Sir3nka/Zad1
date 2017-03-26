@@ -34,7 +34,7 @@ Poczatek:
 				xor 		ax, ax	; zerowanie ax
 Petla:
                 inc 		bx			; bx = bx+1
-                mov	al,  byte ptr [ds:bx]	; wrzuc kolejny elem tabnlicy do - chyba al,[dx]
+                mov	al,  byte ptr [bx]	; wrzuc kolejny elem tabnlicy do - chyba al,[dx]
                 cmp	dl, al		;	porownaj Najmniejsza z danym elem tablicy
 										; porównuje cel ze zród³em
                 jl     	Petla		; wykonaj skok gdy mniejsze
